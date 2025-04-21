@@ -1,0 +1,59 @@
+Table Fazenda {
+  id_fazenda int [pk]
+  nome varchar
+  localizacao varchar
+}
+
+Table Talhao {
+  id_talhao int [pk]
+  id_fazenda int [ref: > Fazenda.id_fazenda]
+  nome varchar
+  area_ha decimal
+}
+
+Table Cultura {
+  id_cultura int [pk]
+  nome varchar
+}
+
+Table Plantio {
+  id_plantio int [pk]
+  id_fazenda int [ref: > Fazenda.id_fazenda]
+  id_cultura int [ref: > Cultura.id_cultura]
+  data_plantio date
+  data_colheita date
+}
+
+Table Sensores {
+  id_sensor int [pk]
+  tipo varchar
+  unidade_medida varchar
+}
+
+Table Leitura {
+  id_leitura int [pk]
+  id_sensor int [ref: > Sensores.id_sensor]
+  id_plantio int [ref: > Plantio.id_plantio]
+  data_hora datetime
+  valor decimal
+}
+
+Table AplicacaoInsumo {
+  id_aplicacao int [pk]
+  id_plantio int [ref: > Plantio.id_plantio]
+  data_hora datetime
+}
+
+Table Insumo {
+  id_insumo int [pk]
+  nome varchar
+  tipo varchar
+}
+
+Table ItemAplicado {
+  id_item int [pk]
+  id_aplicacao int [ref: > AplicacaoInsumo.id_aplicacao]
+  id_insumo int [ref: > Insumo.id_insumo]
+  quantidade decimal
+  unidade varchar
+}
